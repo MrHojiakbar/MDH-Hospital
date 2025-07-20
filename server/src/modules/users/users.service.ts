@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -26,7 +27,6 @@ export class UsersService implements OnModuleInit {
       console.log('❌');
     }
   }
-
   async register(payload: RegisterDto, res: Response) {
     const founded = await this.prisma.user.findFirst({
       where: {
@@ -53,26 +53,11 @@ export class UsersService implements OnModuleInit {
       },
     });
 
-    const accessToken = await this.jwt.signAsync({
-      id: user.id,
-      role: user.role,
-      httpOnly: true,
-    });
-    const refreshToken = await this.jwt.signAsync({
-      id: user.id,
-      role: user.role,
-      httpOnly: true,
-    });
-
-    res.cookie('accesToken', accessToken, {
-      maxAge: 60 * 60 * 1000,
-      secure: false,
-    });
-    res.cookie('refreshToken', refreshToken, {
-      maxAge: 60 * 60 * 1000 * 24,
-      secure: false,
-    });
-
+    const { accessToken, refreshToken } = await this.#_createToken(
+      user.id,
+      user.role,
+      res,
+    );
 
     return {
       message: 'Success!',
@@ -105,27 +90,11 @@ export class UsersService implements OnModuleInit {
       throw new NotFoundException('Parol xato kiritildi!');
     }
 
-    const accessToken = await this.jwt.signAsync({
-      id: founded.id,
-      role: founded.role,
-      httpOnly: true,
-    });
-    const refreshToken = await this.jwt.signAsync({
-      id: founded.id,
-      role: founded.role,
-      httpOnly: true,
-    });
-
-
-    res.cookie('accessToken', accessToken, {
-      maxAge: 60 * 60 * 1000,
-      secure: false,
-    });
-    res.cookie('refreshToken', refreshToken, {
-      maxAge: 60 * 60 * 1000 * 24,
-      secure: false,
-    });
-
+    const { accessToken, refreshToken } = await this.#_createToken(
+      founded.id,
+      founded.role,
+      res,
+    );
     return {
       message: 'Success',
       data: {
@@ -137,10 +106,48 @@ export class UsersService implements OnModuleInit {
       },
     };
   }
+  async google(email: string, res: Response) {
+    const founded = await this.prisma.user.findFirst({
+      where: { email: email },
+    });
+    if (!founded) {
+      throw new BadRequestException("Noto'g'ri google hisob kiritildi!");
+    }
 
+    const { accessToken, refreshToken } = await this.#_createToken(
+      founded.id,
+      founded.role,
+      res,
+    );
+
+    return {
+      message: 'Success!',
+      data: {
+        user: founded,
+        tokens: {
+          accessToken,
+          refreshToken,
+        },
+      },
+    };
+  }
+  async me(id: string) {
+    const founded = await this.prisma.user.findFirst({
+      where: { id },
+    });
+    if (!founded) {
+      throw new BadRequestException("Siz hali ro'yxatdan o'tmagansiz!");
+    }
+    return {
+      message: 'Success',
+      data: {
+        user: founded,
+      },
+    };
+  }
   async #_seedUser() {
     const user = {
-      email: 'dilmuhammadadbumalikov06@gmail.com',
+      email: 'dilmuhammadabdumalikov06@gmail.com',
       fullname: 'Dilmuhammad Abdumalikov',
       imageUrl:
         'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
@@ -169,5 +176,30 @@ export class UsersService implements OnModuleInit {
         },
       });
     }
+  }
+  async #_createToken(id: string, role: string, res: Response) {
+    const accessToken = await this.jwt.signAsync({
+      id: id,
+      role: role,
+      httpOnly: true,
+    });
+    const refreshToken = await this.jwt.signAsync({
+      id: id,
+      role: role,
+      httpOnly: true,
+    });
+
+    res.cookie('accessToken', accessToken, {
+      maxAge: 60 * 60 * 1000,
+      secure: false,
+    });
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 60 * 60 * 1000 * 24,
+      secure: false,
+    });
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }
