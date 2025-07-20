@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import { Route, Routes } from "react-router";
+import MainLayout from "./layout/main";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        
+      </Route>
+    </Routes>
+  );
+};
 
-export default App
+export default App;

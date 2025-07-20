@@ -1,0 +1,32 @@
+nav {
+  max-height: 80px;
+  min-height: 80px;
+  height: 100%;
+  max-width: 100vw;
+  width: 100%;
+  background-color: #5885af;
+  padding: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .navigation {
+    display: flex;
+    gap: 24px;
+  }
+  .active {
+    color: #274472;
+  }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #274472;
+      text-decoration: underline;
+    }
+    &:last-child {
+      margin-right: 20px;
+    }
+  }
+}
