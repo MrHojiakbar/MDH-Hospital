@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 import { NavLink } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const NavBarLayout = () => {
   return (
@@ -21,7 +23,7 @@ const NavBarLayout = () => {
             isActive ? "nav-link active" : "nav-link"
           }
         >
-          Doktorlar
+          Shifokorlar
         </NavLink>
         <NavLink
           to="/statistics"
@@ -55,7 +57,8 @@ const NavBarLayout = () => {
             isActive ? "nav-link active" : "nav-link"
           }
         >
-          Profil
+          <FontAwesomeIcon icon={faUser} />
+          <span> Profil</span>
         </NavLink>
       </div>
     </nav>
