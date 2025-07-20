@@ -1,24 +1,56 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { doctorStatus, WorkType } from "@prisma/client";
-import { IsEnum, IsInt, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { doctorStatus, WorkType } from '@prisma/client';
+import { IsEnum, IsInt, IsString, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
 
-
-export class DoctorUpdateDto{
-
-  @ApiProperty({enum: WorkType, description: 'Select one of the predefined work types', example: WorkType.DENTIST, required: false})
-  @IsString()
+export class DoctorUpdateDto {
+  @ApiProperty({
+    enum: WorkType,
+    description: 'Select one of the predefined work types',
+    example: WorkType.DENTIST,
+    required: false,
+  })
+  @IsOptional()
   @IsEnum(WorkType)
-  workType: WorkType;
+  workType?: WorkType;
 
-  @ApiProperty({type: 'number', example: 1, required: false})
+  @ApiProperty({
+    type: 'string',
+    example: '5',
+    required: false,
+    description: 'Integer number, even if string in multipart',
+  })
+  @IsOptional()
+  @Type(() => Number)
   @IsInt()
-  stars: number;
+  stars?: number;
 
-  @ApiProperty({type: 'number', example: 25, required: false})
-  @IsInt()
-  roomNumber: number;
-
-  @ApiProperty({enum: doctorStatus, description: 'Set the doctor status', required: false, example: doctorStatus.ACTIVE,})
+  @ApiProperty({ type: 'string', example: 'bio yozish', required: true })
   @IsString()
-  status: doctorStatus;
+  bio: string;
+
+  @Type(() => Number)
+  @IsInt()
+  experienceYears: number;
+
+  @ApiProperty({
+    type: 'string',
+    example: '101',
+    required: false,
+    description: 'Room number (as string for multipart/form-data)',
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  roomNumber?: number;
+
+  @ApiProperty({
+    enum: doctorStatus,
+    example: doctorStatus.ACTIVE,
+    description: 'Doctor status',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(doctorStatus)
+  status?: doctorStatus;
 }
