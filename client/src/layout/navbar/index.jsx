@@ -52,7 +52,7 @@ const NavBarLayout = () => {
       </div>
       <div className="register">
         <NavLink
-          to="/profile"
+          to="/me"
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
           }

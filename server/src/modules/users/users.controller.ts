@@ -55,8 +55,6 @@ export class UsersController {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
 
-    res.status(200).send({
-      message: 'Siz muvaffaqiyat bilan tizimdan chiqdingiz!',
-    });
+    res.redirect(`${process.env.CORS_ORIGINS}/login`);
   }
 }

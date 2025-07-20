@@ -1,0 +1,83 @@
+.me {
+  max-width: 1432px;
+  width: 100%;
+  padding: 16px;
+  margin: 0 auto;
+  display: flex;
+  color: #274472;
+  gap: 16px;
+
+  .info,
+  .story {
+    max-width: 50%;
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    width: 50%;
+    padding: 32px 16px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: #274472;
+
+      &:hover {
+        color: #5885af;
+      }
+    }
+  }
+  .img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0;
+
+    .upload {
+      position: relative;
+
+      .uploadButton {
+        position: absolute;
+        top: 110px;
+        left: 100px;
+        width: 40px;
+        height: 40px;
+        background-color: #c3e0e5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        input {
+          display: none;
+        }
+      }
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+  }
+
+  .more {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      max-width: 80%;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #274472;
+      margin-bottom: 20px;
+    }
+
+  }
+}
