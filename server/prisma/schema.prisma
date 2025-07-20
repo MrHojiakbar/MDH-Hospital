@@ -1,0 +1,196 @@
+enum userRole {
+  user
+  admin
+  manager
+  doctor
+}
+
+enum gender {
+  male
+  female
+}
+
+enum doctorStatus {
+  ACTIVE // Faol, ishga tayyor
+  INACTIVE // No-faol, hozircha ishlamayapti
+  BUSY // Band, hozirda qabul qilmayapti
+  ON_VACATION // Ta'tilda
+  SUSPENDED // Bloklangan, vaqtinchalik to‘xtatilgan
+  RESIGNED // Ishdan chiqqan / ishdan ketgan
+  PENDING // Yangi ro‘yxatdan o‘tgan, tasdiq kutmoqda
+}
+
+enum ambulanceStatus {
+  PENDING
+  COMPLETED
+  MISSED
+  CANCELLED
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum dayOfWeek {
+  Dushanba
+  Seshanba
+  Chorshanba
+  Payshanba
+  Juma
+  Shanba
+  Yakshanba
+}
+
+enum sentType {
+  email
+  sms
+}
+
+enum WorkType {
+  THERAPIST
+  SURGEON
+  PEDIATRICIAN
+  CARDIOLOGIST
+  NEUROLOGIST
+  DERMATOLOGIST
+  ONCOLOGIST
+  GYNECOLOGIST
+  UROLOGIST
+  PSYCHIATRIST
+  RADIOLOGIST
+  DENTIST
+  ENDOCRINOLOGIST
+  OPHTHALMOLOGIST
+  ENT
+  PULMONOLOGIST
+  NEPHROLOGIST
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid()) @db.Uuid
+  email        String         @unique
+  fullname     String
+  password     String
+  phoneNumber  String
+  role         userRole       @default(user)
+  gender       gender
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt()
+  Doctor       Doctor[]
+  Appointment  Appointment[]
+  Chat         Chat[]
+  Notification Notification[]
+
+  @@map("users")
+}
+
+model Doctor {
+  id          String        @id @default(uuid()) @db.Uuid
+  workType    WorkType
+  stars       Float         @default(0.0)
+  userId      String        @db.Uuid
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  roomNumber  Int
+  status      doctorStatus
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt()
+  Appointment Appointment[]
+  Chat        Chat[]
+  statistic   statistic[]
+  Schedules   Schedules[]
+
+  @@map("doctors")
+}
+
+model Ambulance {
+  id          String          @id @default(uuid()) @db.Uuid
+  status      ambulanceStatus
+  carNumber   String
+  phoneNumber String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt()
+}
+
+model Appointment {
+  id              String            @id @default(uuid()) @db.Uuid
+  doctor          Doctor            @relation(fields: [doctorId], references: [id])
+  doctorId        String            @db.Uuid
+  userId          String            @db.Uuid
+  user            User              @relation(fields: [userId], references: [id])
+  appointmentDate DateTime
+  queueNumber     Int
+  status          AppointmentStatus
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt()
+}
+
+model Chat {
+  id        String   @id @default(uuid()) @db.Uuid
+  message   String
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId  String   @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model statistic {
+  id            String   @id @default(uuid()) @db.Uuid
+  totalPatients BigInt
+  doctor        Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId      String   @db.Uuid
+  usersCity     String[]
+  awgWaitTime   Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt()
+}
+
+model Schedules {
+  id        String      @id @default(uuid()) @db.Uuid
+  doctor    Doctor      @relation(fields: [doctorId], references: [id])
+  doctorId  String      @db.Uuid
+  dayOfWeek dayOfWeek[]
+  startTime DateTime
+  endTime   DateTime
+}
+
+model Notification {
+  id        String   @id @default(uuid()) @db.Uuid
+  message   String
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  sentAt    DateTime
+  type      sentType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+//   Therapist = "Therapist",           // Terapevt
+//   Surgeon = "Surgeon",               // Jarroh
+//   Pediatrician = "Pediatrician",     // Bolalar shifokori
+//   Cardiologist = "Cardiologist",     // Yurak shifokori
+//   Neurologist = "Neurologist",       // Asab tizimi bo‘yicha shifokor
+//   Dermatologist = "Dermatologist",   // Teriga oid shifokor
+//   Oncologist = "Oncologist",         // Saraton bo‘yicha shifokor
+//   Gynecologist = "Gynecologist",     // Ginekolog
+//   Urologist = "Urologist",           // Urolog
+//   Psychiatrist = "Psychiatrist",     // Ruhiy kasalliklar bo‘yicha
+//   Radiologist = "Radiologist",       // Radiolog
+//   Dentist = "Dentist",               // Stomatolog / Tish shifokori
+//   Endocrinologist = "Endocrinologist", // Gormonlar va ichki bezlar bo‘yicha
+//   Ophthalmologist = "Ophthalmologist", // Ko‘z shifokori
+//   ENT = "ENT",                       // Quloq, burun, tomoq (LOR)
+//   Pulmonologist = "Pulmonologist",   // Nafas yo‘llari bo‘yicha shifokor
+//   Nephrologist = "Nephrologist",     // Buyrak bo‘yicha
