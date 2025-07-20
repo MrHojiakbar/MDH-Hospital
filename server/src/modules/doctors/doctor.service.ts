@@ -6,7 +6,6 @@ import {
 import { PrismaService } from 'src/prisma';
 import { DoctorCreateDto, DoctorUpdateDto, GetByTypeDto } from './dtos';
 import { isUUID } from 'validator';
-import { WorkType } from '@prisma/client';
 
 @Injectable()
 export class DoctorService {
@@ -44,8 +43,15 @@ export class DoctorService {
   }
 
   async create(payload: DoctorCreateDto) {
+
     if (!isUUID(payload.userId)) {
       throw new BadRequestException('userId Error Format');
+    }
+
+    const foundUser = await this.prisma.user.findUnique({where: {id: payload.userId}});
+
+    if(!foundUser){
+      throw new NotFoundException('User Not Found');
     }
 
     const data = await this.prisma.doctor.create({
@@ -55,6 +61,8 @@ export class DoctorService {
         stars: payload.stars,
         roomNumber: payload.roomNumber,
         status: payload.status,
+        bio: payload.bio,
+        experienceYears: payload.experienceYears
       },
     });
 
@@ -65,6 +73,7 @@ export class DoctorService {
   }
 
   async update(userId: string, payload: DoctorUpdateDto) {
+
     if (!isUUID(userId)) {
       throw new BadRequestException('userId Error Format');
     }
@@ -84,6 +93,8 @@ export class DoctorService {
         stars: payload?.stars || foundUser.stars,
         roomNumber: payload?.roomNumber || foundUser.roomNumber,
         status: payload?.status || foundUser.status,
+        bio: payload?.bio || foundUser.bio,
+        experienceYears: payload.experienceYears || foundUser.experienceYears,
       },
     });
 
