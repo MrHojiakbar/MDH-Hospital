@@ -1,9 +1,80 @@
 footer {
   max-width: 100vw;
   width: 100%;
-  min-height: 200px;
-  height: 100%;
-  max-height: 200px;
   background-color: #5885af;
-  padding: 16px;
+  padding: 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    .footer-section {
+      flex: 1;
+      min-width: 280px;
+      margin: 15px;
+
+      h3 {
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+      }
+
+      p {
+        font-size: 0.9em;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 10px;
+
+          a {
+            color: #fff;
+            transition: color 0.3s ease;
+
+
+            &:hover {
+              color: #274472;
+            }
+          }
+        }
+      }
+
+      .fas {
+        margin-right: 8px; // Ikonkalar va matn orasidagi joy
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.85em;
+    opacity: 0.8;
+  }
+}
+
+// Kichik ekranlar uchun adaptatsiya
+@media (max-width: 768px) {
+  footer {
+    .footer-content {
+      flex-direction: column; // Kichik ekranlarda ustun bo'lib joylashadi
+      align-items: center; // Markazga tekislash
+    }
+
+    .footer-section {
+      text-align: center; // Matnni markazga tekislash
+      margin-bottom: 25px; // Bo'limlar orasidagi bo'sh joy
+    }
+  }
 }
