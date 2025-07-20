@@ -8,6 +8,7 @@ import { UsersModule } from './modules';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    
     PrismaModule,
     UsersModule
   ],
