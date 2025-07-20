@@ -80,9 +80,10 @@ datasource db {
 model User {
   id           String         @id @default(uuid()) @db.Uuid
   email        String         @unique
-  fullname     String
-  password     String
-  phoneNumber  String
+  fullname     String         @db.VarChar(150)
+  imageUrl     String         @db.VarChar(150)
+  password     String         @db.VarChar(150)
+  phoneNumber  String         @db.VarChar(50)
   role         userRole       @default(user)
   gender       gender
   createdAt    DateTime       @default(now())
@@ -116,8 +117,8 @@ model Doctor {
 model Ambulance {
   id          String          @id @default(uuid()) @db.Uuid
   status      ambulanceStatus
-  carNumber   String
-  phoneNumber String
+  carNumber   String          @db.VarChar(50)
+  phoneNumber String          @db.VarChar(50)
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt()
 }
@@ -137,7 +138,7 @@ model Appointment {
 
 model Chat {
   id        String   @id @default(uuid()) @db.Uuid
-  message   String
+  message   String   
   doctor    Doctor   @relation(fields: [doctorId], references: [id])
   doctorId  String   @db.Uuid
   userId    String   @db.Uuid
