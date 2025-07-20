@@ -9,7 +9,7 @@ const MainLayout = () => {
     <div className="main">
       <div>
         <NavBarLaout />
-        <div className="outlet">
+        <div className="outlet" style={{margin:'50px 0'}}>
           <Outlet />
         </div>
       </div>
