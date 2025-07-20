@@ -27,7 +27,7 @@ export class UsersService implements OnModuleInit {
     }
   }
 
-  async rergister(payload: RegisterDto, res: Response) {
+  async register(payload: RegisterDto, res: Response) {
     const founded = await this.prisma.user.findFirst({
       where: {
         email: payload.email,
@@ -56,10 +56,12 @@ export class UsersService implements OnModuleInit {
     const accessToken = await this.jwt.signAsync({
       id: user.id,
       role: user.role,
+      httpOnly: true,
     });
     const refreshToken = await this.jwt.signAsync({
       id: user.id,
       role: user.role,
+      httpOnly: true,
     });
 
     res.cookie('accesToken', accessToken, {
@@ -71,11 +73,12 @@ export class UsersService implements OnModuleInit {
       secure: false,
     });
 
+
     return {
       message: 'Success!',
       data: {
         user: user,
-        token: {
+        tokens: {
           accessToken,
           refreshToken,
         },
@@ -105,13 +108,16 @@ export class UsersService implements OnModuleInit {
     const accessToken = await this.jwt.signAsync({
       id: founded.id,
       role: founded.role,
+      httpOnly: true,
     });
     const refreshToken = await this.jwt.signAsync({
       id: founded.id,
       role: founded.role,
+      httpOnly: true,
     });
 
-    res.cookie('accesToken', accessToken, {
+
+    res.cookie('accessToken', accessToken, {
       maxAge: 60 * 60 * 1000,
       secure: false,
     });
@@ -119,6 +125,7 @@ export class UsersService implements OnModuleInit {
       maxAge: 60 * 60 * 1000 * 24,
       secure: false,
     });
+
     return {
       message: 'Success',
       data: {

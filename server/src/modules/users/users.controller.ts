@@ -8,12 +8,18 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post('register')
-  async register(@Body() payload: RegisterDto, @Res() res: Response) {
-    return await this.service.rergister(payload, res);
+  async register(
+    @Body() payload: RegisterDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return await this.service.register(payload, res);
   }
 
   @Post('login')
-  async login(@Body() payload: LoginDto, @Res() res: Response) {
+  async login(
+    @Body() payload: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     return await this.service.login(payload, res);
   }
 }

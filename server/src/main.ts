@@ -7,6 +7,8 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api');
+
   app.use(cookieParser());
 
   app.enableCors({
@@ -31,6 +33,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('MDH example')
     .setDescription('The MDH API description')
+    .addCookieAuth()
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
