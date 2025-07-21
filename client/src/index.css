@@ -3,12 +3,13 @@
   font-family: "Roboto", sans-serif;
   letter-spacing: 2px;
   line-height: 1.6;
+  outline: none;
 }
 body {
   margin: 0;
   padding: 0;
 }
-a{
+a {
   text-decoration: none;
 }
 .container{

@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router";  
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import mainLogo from '../../assets/images/mainLogo.png'
@@ -9,7 +9,10 @@ const NavBarLayout = () => {
   return (
     <nav>
       <div className="container">
-        <div className="img"><img src={mainLogo} alt="" /></div>
+        <div className="img">
+          <img src={mainLogo} alt="Logo" />
+        </div>
+
         <div className="navigation">
           <NavLink
             to="/"
@@ -52,9 +55,10 @@ const NavBarLayout = () => {
             Aloqa uchun
           </NavLink>
         </div>
+
         <div className="register">
           <NavLink
-            to="/profile"
+            to="/me"
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }

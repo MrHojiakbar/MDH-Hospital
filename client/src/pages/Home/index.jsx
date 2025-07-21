@@ -43,11 +43,10 @@ const HomePage = () => {
           <p>
             MDH universalniy markaz biz sizga hohlagan turdagi shifokoringizni oldindan band qilib vaqtingizni tejashingiz mumkin.
             Bizni markazda tez yordam mashinasini ham sizga taklif etolamiz va sizni mahalangizda hohlagan doktoringizni ishlash vaqtini ham taqdim etamiz.
-            bu web sahifada bepul administratsiyadan konsultatsiya ololasiz
+            Bu web sahifada bepul administratsiyadan konsultatsiya ololasiz.
           </p>
         </div>
       </div>
-
     </div>
   )
 }
