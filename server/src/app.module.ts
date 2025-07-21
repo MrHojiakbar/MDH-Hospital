@@ -5,6 +5,9 @@ import { UsersModule } from './modules';
 import { DoctorModule } from './modules';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { APP_GUARD } from '@nestjs/core';
+import { CheckAuthGuard, CheckRoleGuard } from './guards';
+import { JwtHelper } from './helpers';
 
 @Module({
   imports: [
@@ -21,5 +24,17 @@ import * as path from 'path';
     UsersModule,
     DoctorModule,
   ],
+
+  providers: [
+    JwtHelper,
+    {
+      provide: APP_GUARD,
+      useClass: CheckAuthGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CheckRoleGuard
+    }
+  ]
 })
 export class AppModule {}
