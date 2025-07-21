@@ -55,6 +55,9 @@
         input {
           display: none;
         }
+        lobel {
+          cursor: pointer;
+        }
       }
     }
     img {
@@ -78,6 +81,5 @@
       border-bottom: 1px solid #274472;
       margin-bottom: 20px;
     }
-
   }
 }
