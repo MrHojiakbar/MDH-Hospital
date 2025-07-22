@@ -1,0 +1,48 @@
+form {
+    max-width: 532px;
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    gap: 16px;
+    
+    .navlink {
+      margin-top: 30px;
+      color: #274472;
+  
+      &:hover {
+        color: #41729f;
+      }
+    }
+  
+    h1 {
+      color: #274472;
+    }
+    input{
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: transparent;
+      box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+      color: #274472;
+    }
+    .button {
+      padding: 16px;
+      color: #274472;
+      border-radius: 8px;
+      box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+      border: none;
+      background-color: transparent;
+  
+      &:hover {
+        cursor: pointer;
+        color: #41729f;
+      }
+    }
+  }
+  
