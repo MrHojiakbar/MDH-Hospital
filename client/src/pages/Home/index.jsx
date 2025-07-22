@@ -6,6 +6,10 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import blade from '../../assets/images/baledDoctor.png'
+import cardiolog from '../../assets/images/cardiolog.jpg'
+import gangster from '../../assets/images/gangster.jpg'
+import howard from '../../assets/images/howard.jpg'
+import realDoctor from '../../assets/images/realDoctor.jpg'
 import './Home.styles.scss'
 
 const HomePage = () => {
@@ -134,7 +138,65 @@ const HomePage = () => {
           <p>Har bir bemorga individual yondashuv va parvarish.</p>
         </div>
       </div>
-      <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
+      <div style={{ marginBottom: '70px' }}>
+        <h2 style={{ color: '#105e99', textAlign: 'center', marginBottom: '25px' }}>Bizning shifokorlarimiz</h2>
+        <p style={{ color: '#454545', textAlign: 'center', marginBottom: '35px' }}>Bizning shifokorlarimiz o'z sohalarida ixtisoslashgan va 10 yildan ortiq tajribaga ega.</p>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+          slidesPerView={4}
+          spaceBetween={30}
+          slidesPerGroup={4}
+          loop={true}
+          pagination={{ clickable: true }}
+          navigation
+          className='swiper'
+        >
+          {[...Array(2)].map((_, i) => (
+            <>
+              <SwiperSlide className='slide'>
+                <div className="doctorsSlide">
+                  <img src={cardiolog} alt="cardiolog" />
+                  <h3>Dr.Milia Sins</h3>
+                  <p style={{ fontSize: '12px', marginTop: '-20px' }}>Cardiolog</p>
+                  <p>Veranda was born and raised in Jakarta, Indonesia...</p>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide className='slide'>
+                <div className="doctorsSlide">
+                  <img src={howard} alt="howard" />
+                  <h3>Dr.Peter Parker</h3>
+                  <p style={{ fontSize: '12px', marginTop: '-20px' }}>Neurologist</p>
+                  <p>Parker was born and raised in UK...</p>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide className='slide'>
+                <div className="doctorsSlide">
+                  <img src={gangster} alt="gangster" />
+                  <h3>Dr.John Fury</h3>
+                  <p style={{ fontSize: '12px', marginTop: '-20px' }}>Psixologist</p>
+                  <p>John was born and raised in Indonesia...</p>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide className='slide'>
+                <div className="doctorsSlide">
+                  <img src={realDoctor} alt="realDoctor" />
+                  <h3>Dr. Hooman Azmi</h3>
+                  <p style={{ fontSize: '12px', marginTop: '-20px' }}>Dental</p>
+                  <p>Hooman was born and raised in Indonesia...</p>
+                </div>
+              </SwiperSlide>
+            </>
+          ))}
+        </Swiper>
+
+      </div>
+      <div>
+        <h2 style={{ color: '#105e99' }}>Bizning Manzilimiz</h2>
+        <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
+      </div>
     </div>
   )
 }
