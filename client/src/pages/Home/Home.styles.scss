@@ -47,6 +47,7 @@
                         border-radius: 5px;
                         cursor: pointer;
                         transition: 0.3s;
+
                         &:hover {
                             background-color: #274472;
                         }
@@ -54,5 +55,101 @@
                 }
             }
         }
+    }
+
+    margin-bottom: 50px;
+}
+
+@keyframes hoverColor {
+
+    0%,
+    100% {
+        background-color: #5a8caf;
+    }
+
+    50% {
+        background-color: #105e99;
+    }
+}
+
+.about {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 50px;
+
+    &>div {
+        cursor: pointer;
+        height: 300px;
+        background-color: #5a8caf;
+        padding: 15px;
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        animation-name: hoverColor;
+        animation-duration: 6s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in-out;
+        transition: box-shadow 0.3s ease;
+        transition: 0.3s;
+
+        &:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+    }
+
+    &>div:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    &>div:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+
+    &>div:nth-child(3) {
+        animation-delay: 1s;
+    }
+
+    &>div:nth-child(4) {
+        animation-delay: 1.5s;
+    }
+
+    &>div:nth-child(5) {
+        animation-delay: 2s;
+    }
+
+    &>div:nth-child(6) {
+        animation-delay: 2.5s;
+    }
+
+    &>div:nth-child(7) {
+        animation-delay: 3s;
+    }
+
+    &>div:nth-child(8) {
+        animation-delay: 3.5s;
+    }
+
+    &>div:nth-child(9) {
+        animation-delay: 4s;
+    }
+
+    &>div:nth-child(10) {
+        animation-delay: 4.5s;
+    }
+
+    &>div:nth-child(11) {
+        animation-delay: 5s;
+    }
+
+    &>div:nth-child(12) {
+        animation-delay: 5.5s;
+    }
+
+    &>div:first-child {
+        grid-column: 1 / 3;
     }
 }
