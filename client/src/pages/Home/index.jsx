@@ -29,7 +29,7 @@ const HomePage = () => {
         [41.311081, 69.240562],
         {
           hintContent: 'Toshkent',
-          balloonContent: 'Bu yer Toshkent',
+          balloonContent: 'Bizning Manzilimiz',
         }
       );
 
