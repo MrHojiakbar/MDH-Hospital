@@ -36,6 +36,10 @@ footer {
         li {
           margin-bottom: 10px;
 
+          .active {
+              color: #274472;
+          }
+
           a {
             color: #fff;
             transition: color 0.3s ease;
@@ -44,6 +48,7 @@ footer {
             &:hover {
               color: #274472;
             }
+
           }
         }
       }

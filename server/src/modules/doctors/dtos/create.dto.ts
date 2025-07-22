@@ -14,6 +14,7 @@ export class DoctorCreateDto{
   @IsString()
   bio: string;
 
+  @ApiProperty({type: 'number', example: 2, required: true})
   @Type(() => Number)
   @IsInt()
   experienceYears: number;

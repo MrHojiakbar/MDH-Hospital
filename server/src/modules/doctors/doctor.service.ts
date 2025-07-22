@@ -14,9 +14,21 @@ export class DoctorService {
   async getAll() {
     const data = await this.prisma.doctor.findMany();
 
+    const newData = await Promise.all(
+      data.map(async (item) => {
+        const foundUser = await this.prisma.user.findUnique({
+          where: { id: item.userId },
+        });
+        return {
+          ...item,
+          user: foundUser,
+        };
+      }),
+    );
+
     return {
       message: 'success',
-      data: data,
+      data: newData,
     };
   }
 
@@ -33,25 +45,42 @@ export class DoctorService {
     };
   }
 
-  async getByType(workType: GetByTypeDto){
-    const data = await this.prisma.doctor.findMany({where: {workType: workType.workType}})
+  async getByType(workType: GetByTypeDto) {
+    const data = await this.prisma.doctor.findMany({
+      where: { workType: workType.workType },
+    });
 
     return {
-      message: "success",
-      data: data
-    }
+      message: 'success',
+      data: data,
+    };
   }
 
   async create(payload: DoctorCreateDto) {
-
     if (!isUUID(payload.userId)) {
       throw new BadRequestException('userId Error Format');
     }
 
-    const foundUser = await this.prisma.user.findUnique({where: {id: payload.userId}});
+    const foundUser = await this.prisma.user.findUnique({
+      where: { id: payload.userId },
+    });
 
-    if(!foundUser){
+    if (!foundUser) {
       throw new NotFoundException('User Not Found');
+    }
+
+    if (foundUser.role !== 'doctor') {
+      throw new BadRequestException('Bu Userning Roli Doctor emas');
+    }
+
+    const founDoctorUserId = await this.prisma.doctor.findFirst({
+      where: { userId: payload.userId },
+    });
+
+    if (founDoctorUserId) {
+      throw new BadRequestException(
+        "Bunday User ID blian doctor yaratib bo'lingan",
+      );
     }
 
     const data = await this.prisma.doctor.create({
@@ -62,7 +91,7 @@ export class DoctorService {
         roomNumber: payload.roomNumber,
         status: payload.status,
         bio: payload.bio,
-        experienceYears: payload.experienceYears
+        experienceYears: payload.experienceYears,
       },
     });
 
@@ -73,7 +102,6 @@ export class DoctorService {
   }
 
   async update(userId: string, payload: DoctorUpdateDto) {
-
     if (!isUUID(userId)) {
       throw new BadRequestException('userId Error Format');
     }
