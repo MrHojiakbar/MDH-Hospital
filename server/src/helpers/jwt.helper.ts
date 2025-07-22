@@ -10,8 +10,8 @@ export class JwtHelper{
   async generateToken(payload: {id: string, role: userRole}){
 
     const token = await this.jwt.signAsync(payload,{
-      secret: process.env.JWT_SECRET_TIME,
-      expiresIn: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_SECRET_TIME,
     });
 
     return token;

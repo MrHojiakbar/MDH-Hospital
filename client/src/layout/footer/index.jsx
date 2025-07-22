@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { NavLink } from 'react-router'
+import { NavLink } from "react-router";
 
 const FooterLayout = () => {
   return (
@@ -9,9 +9,9 @@ const FooterLayout = () => {
         <div className="footer-section about">
           <h3>Biz Haqimizda</h3>
           <p>
-            Bizning kasalxonamizda sizga yuqori malakali shifokorlar va zamonaviy
-            tibbiy asbob-uskunalar yordamida sifatli xizmat ko'rsatamiz.
-            Sog'ligingiz biz uchun muhim.
+            Bizning kasalxonamizda sizga yuqori malakali shifokorlar va
+            zamonaviy tibbiy asbob-uskunalar yordamida sifatli xizmat
+            ko'rsatamiz. Sog'ligingiz biz uchun muhim.
           </p>
         </div>
 
@@ -19,19 +19,34 @@ const FooterLayout = () => {
           <h3>Tezkor Havolalar</h3>
           <ul>
             <li>
-              <NavLink>Bosh Sahifa</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "")}
+                to={"/"}
+              >
+                Bosh Sahifa
+              </NavLink>
             </li>
             <li>
               <NavLink>Xizmatlar</NavLink>
             </li>
             <li>
-              <NavLink>Shifokorlar</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "")}
+                to={"/doctors"}
+              >
+                Shifokorlar
+              </NavLink>
             </li>
             <li>
               <NavLink>Qabulga Yozilish</NavLink>
             </li>
             <li>
-              <NavLink>Bog'lanish</NavLink>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "")}
+                to={"/contact"}
+              >
+                Bog'lanish
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -51,7 +66,10 @@ const FooterLayout = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Kasalxona Nomi. Barcha huquqlar himoyalangan.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Kasalxona Nomi. Barcha huquqlar
+          himoyalangan.
+        </p>
       </div>
     </footer>
   );

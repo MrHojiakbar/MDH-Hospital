@@ -11,12 +11,24 @@ import { UsersService } from './users.service';
 import { LoginDto, RegisterDto } from './dtos';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { Protected, Roles } from 'src/decaratores';
+import { userRole } from '@prisma/client';
 
 @Controller('auth')
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
+
+  @Get()
+  @Protected(true)
+  @Roles([userRole.admin])
+  async getAll(){
+    return await this.service.getAll();
+  }
+
   @Post('register')
+  @Protected(false)
+  @Roles([userRole.admin, userRole.user])
   async register(
     @Body() payload: RegisterDto,
     @Res({ passthrough: true }) res: Response,
@@ -25,6 +37,8 @@ export class UsersController {
   }
 
   @Post('login')
+  @Protected(false)
+  @Roles([userRole.admin, userRole.user])
   async login(
     @Body() payload: LoginDto,
     @Res({ passthrough: true }) res: Response,
