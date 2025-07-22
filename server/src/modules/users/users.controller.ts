@@ -68,7 +68,6 @@ export class UsersController {
   async logout(@Res() res: Response) {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-
     res.redirect(`${process.env.CORS_ORIGINS}/login`);
   }
 }
