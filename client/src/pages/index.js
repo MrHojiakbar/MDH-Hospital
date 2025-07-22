@@ -4,3 +4,4 @@ export { default as DoctorsPage } from "./Doctors";
 export { default as ContactsPage } from "./ContactsPage";
 export { default as AboutUsPage } from "./AboutUs";
 export { default as ProfilePage } from "./Profile";
+export {default as DoctorDetailsPage} from './DoctorDetails';

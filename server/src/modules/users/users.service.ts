@@ -28,6 +28,16 @@ export class UsersService implements OnModuleInit {
       console.log(error)
     }
   }
+
+  async getAll(){
+    const data = await this.prisma.user.findMany();
+
+    return {
+      message: "success",
+      data: data,
+    }
+  }
+
   async register(payload: RegisterDto, res: Response) {
     const founded = await this.prisma.user.findFirst({
       where: {
@@ -49,7 +59,7 @@ export class UsersService implements OnModuleInit {
         gender: payload.gender,
         password: hashedPassword,
         phoneNumber: payload.phoneNumber,
-        role: userRole.user,
+        role: payload.role,
         fullname: payload.fullname,
       },
     });
