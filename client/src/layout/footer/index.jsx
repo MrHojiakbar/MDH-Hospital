@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { NavLink } from 'react-router'
+import { NavLink } from "react-router";
 
 const FooterLayout = () => {
   return (

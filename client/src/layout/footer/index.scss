@@ -1,8 +1,6 @@
 footer {
-  max-width: 100vw;
   width: 100%;
   background-color: #5885af;
-  padding: 20px;
   color: #fff;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
@@ -38,6 +36,10 @@ footer {
         li {
           margin-bottom: 10px;
 
+          .active {
+              color: #274472;
+          }
+
           a {
             color: #fff;
             transition: color 0.3s ease;
@@ -46,6 +48,7 @@ footer {
             &:hover {
               color: #274472;
             }
+
           }
         }
       }

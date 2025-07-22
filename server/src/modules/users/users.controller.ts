@@ -18,9 +18,18 @@ import { userRole } from '@prisma/client';
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
+
+  @Get()
+  @Protected(true)
+  @Roles([userRole.admin])
+  async getAll(){
+    return await this.service.getAll();
+  }
+
   @Post('register')
   @Protected(false)
   @Roles([userRole.admin, userRole.doctor, userRole.manager, userRole.user])
+ 
   async register(
     @Body() payload: RegisterDto,
     @Res({ passthrough: true }) res: Response,
