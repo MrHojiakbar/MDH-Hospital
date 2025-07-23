@@ -66,12 +66,20 @@ const MePage = ({ user }) => {
               <p>Sizda hozircha qo'shimcha huquqlar yo'q!</p>
             ) : null
           ) : more ? (
-            <div className="addUser">
-              <span>Sizda yangi shifokor qo'shish imkoniyati mavjud!</span>
-              <NavLink to={"/add-doctor"}>
-                <button>Qo'shish</button>
-              </NavLink>
-            </div>
+            <>
+              <div className="addUser">
+                <span>Sizda yangi shifokor qo'shish imkoniyati mavjud!</span>
+                <NavLink to={"/add-doctor"}>
+                  <button>Qo'shish</button>
+                </NavLink>
+              </div>
+              <div className="addUser">
+                <span>Sizda yangi foydalanuvchi yaratish imkoniyati mavjud!</span>
+                <NavLink to={"/add-user"}>
+                  <button>Yaratish</button>
+                </NavLink>
+              </div>
+            </>
           ) : null}
         </div>
       </div>

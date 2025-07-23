@@ -1,16 +1,23 @@
-import { BadRequestException, CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
-import { userRole } from "@prisma/client";
-import { Request, Response } from "express";
-import { PROTECTED_KEY } from "src/decaratores";
-import { JwtHelper } from "src/helpers";
+import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+} from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { userRole } from '@prisma/client';
+import { Request, Response } from 'express';
+import { PROTECTED_KEY } from 'src/decaratores';
+import { JwtHelper } from 'src/helpers';
 
 @Injectable()
 export class CheckAuthGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector, private readonly jwt: JwtHelper){};
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly jwt: JwtHelper,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    
     const isProtected = this.reflector.getAllAndOverride<boolean>(
       PROTECTED_KEY,
       [context.getHandler(), context.getClass()],
@@ -18,10 +25,11 @@ export class CheckAuthGuard implements CanActivate {
 
     const ctx = context.switchToHttp();
     const res = ctx.getResponse<Response>();
-    const request: any = ctx.getRequest<Request & {role?: userRole; userId: string }>();
+    const request: any = ctx.getRequest<
+      Request & { role?: userRole; userId: string }
+    >();
 
-
-    if(!isProtected){
+    if (!isProtected) {
       request.role = userRole.user;
       return true;
     }
@@ -37,13 +45,13 @@ export class CheckAuthGuard implements CanActivate {
     request.userId = data?.id;
     request.role = data?.role;
 
-        if (!accsessToken) {
+    if (!accsessToken) {
       const tokenPayload = {
         id: data?.id,
         role: data?.role,
       };
 
-    const token = await this.jwt.generateToken(tokenPayload);
+      const token = await this.jwt.generateToken(tokenPayload);
 
       res.cookie('accessToken', token, {
         httpOnly: true,
@@ -59,7 +67,7 @@ export class CheckAuthGuard implements CanActivate {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       });
     }
-  
-    return true
+
+    return true;
   }
 }

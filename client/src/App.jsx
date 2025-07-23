@@ -12,6 +12,7 @@ import {
 import LoginPage from "./pages/Profile/login/login";
 import RegisterPage from "./pages/Profile/register/register";
 import AddDoctorPage from "./pages/Profile/addDoctor";
+import AddUserPage from "./pages/Profile/addUser";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="add-doctor" element={<AddDoctorPage />} />
+        <Route path="add-user" element={<AddUserPage />} />
       </Route>
     </Routes>
   );

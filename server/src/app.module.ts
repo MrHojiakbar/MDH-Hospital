@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma';
-import { UsersModule } from './modules';
+import { ScheduleModule, UsersModule } from './modules';
 import { DoctorModule } from './modules';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
@@ -24,19 +24,20 @@ import { AmbulanceModule } from './modules/ambulance/ambulance.module';
     PrismaModule,
     UsersModule,
     DoctorModule,
-    AmbulanceModule
+    AmbulanceModule,
+    ScheduleModule,
   ],
 
   providers: [
     JwtHelper,
     {
       provide: APP_GUARD,
-      useClass: CheckAuthGuard
+      useClass: CheckAuthGuard,
     },
     {
       provide: APP_GUARD,
-      useClass: CheckRoleGuard
-    }
-  ]
+      useClass: CheckRoleGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { LoginDto, RegisterDto } from './dtos';
+import { AddUserDto, LoginDto, RegisterDto } from './dtos';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { Protected, Roles } from 'src/decaratores';
@@ -18,18 +18,16 @@ import { userRole } from '@prisma/client';
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
-
   @Get()
   @Protected(true)
   @Roles([userRole.admin])
-  async getAll(){
+  async getAll() {
     return await this.service.getAll();
   }
 
   @Post('register')
   @Protected(false)
   @Roles([userRole.admin, userRole.doctor, userRole.manager, userRole.user])
- 
   async register(
     @Body() payload: RegisterDto,
     @Res({ passthrough: true }) res: Response,
@@ -78,5 +76,15 @@ export class UsersController {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     res.redirect(`${process.env.CORS_ORIGINS}/login`);
+  }
+
+  @Post('add')
+  @Protected(true)
+  @Roles([userRole.admin, userRole.manager])
+  async addUser(
+    @Body() payload: AddUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return await this.service.add(payload, res);
   }
 }
