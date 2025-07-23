@@ -50,3 +50,19 @@ nav {
     }
   }
 }
+.right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & button{
+    width: 65px;
+    font-size: 11px;
+    cursor: pointer;
+    height: 65px;
+    border-radius: 50%;
+    border: 1px solid #3868b7;
+    background-color: #3868b7;
+    padding: 6px;
+    color: white;
+  }
+}
