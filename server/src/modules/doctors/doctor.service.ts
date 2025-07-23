@@ -37,11 +37,20 @@ export class DoctorService {
       throw new BadRequestException('UserId Error Format');
     }
 
-    const data = await this.prisma.doctor.findUnique({ where: { id: userId } });
+    const doctor = await this.prisma.doctor.findUnique({
+      where: { id: userId },
+    });
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: doctor?.userId },
+    });
 
     return {
       message: 'success',
-      data: data,
+      data: {
+        ...doctor,
+        user,
+      },
     };
   }
 

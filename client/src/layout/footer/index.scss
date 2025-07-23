@@ -5,6 +5,17 @@ footer {
   font-family: Arial, sans-serif;
   box-sizing: border-box;
 
+  .about{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .footer-content {
     display: flex;
     flex-wrap: wrap;
@@ -19,7 +30,7 @@ footer {
 
       h3 {
         color: #fff;
-        margin-bottom: 15px;
+        margin-bottom: 0px;
         font-size: 1.2em;
       }
 
