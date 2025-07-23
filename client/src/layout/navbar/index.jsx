@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { NavLink } from "react-router";
-import { NavLink } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import mainLogo from '../../assets/images/mainLogo.png'
@@ -37,7 +36,7 @@ const NavBarLayout = () => {
             const longitude = position.coords.longitude;
             const yandexLink = `https://yandex.uz/maps/?ll=${longitude},${latitude}&z=24`;
             await customAxios.post('/patient', { location: yandexLink })
-            toast.success('Tez yordam chaqirildi!')            
+            toast.success('Tez yordam chaqirildi!')
           },
           (error) => {
             console.error("Geolocation error:", error);
@@ -111,9 +110,9 @@ const NavBarLayout = () => {
               <FontAwesomeIcon icon={faUser} />
               <span> Profil</span>
             </NavLink>
-          </div>
-          <div>
-            <button>Tez Yordam</button>
+            <div className="sos">
+              <button onClick={sos}>Tez Yordam</button>
+            </div>
           </div>
         </div>
       </div>
