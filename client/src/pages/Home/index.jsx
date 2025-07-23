@@ -153,7 +153,7 @@ const HomePage = () => {
         >
           {[...Array(2)].map((_, i) => (
             <>
-              <SwiperSlide className='slide'>
+              <SwiperSlide key={i} className='slide'>
                 <div className="doctorsSlide">
                   <img src={cardiolog} alt="cardiolog" />
                   <h3>Dr.Milia Sins</h3>
@@ -162,7 +162,7 @@ const HomePage = () => {
                 </div>
               </SwiperSlide>
 
-              <SwiperSlide className='slide'>
+              <SwiperSlide key={i + "s"} className='slide'>
                 <div className="doctorsSlide">
                   <img src={howard} alt="howard" />
                   <h3>Dr.Peter Parker</h3>
@@ -171,7 +171,7 @@ const HomePage = () => {
                 </div>
               </SwiperSlide>
 
-              <SwiperSlide className='slide'>
+              <SwiperSlide key={i + "l"} className='slide'>
                 <div className="doctorsSlide">
                   <img src={gangster} alt="gangster" />
                   <h3>Dr.John Fury</h3>
@@ -180,7 +180,7 @@ const HomePage = () => {
                 </div>
               </SwiperSlide>
 
-              <SwiperSlide className='slide'>
+              <SwiperSlide key={i + "q"}  className='slide'>
                 <div className="doctorsSlide">
                   <img src={realDoctor} alt="realDoctor" />
                   <h3>Dr. Hooman Azmi</h3>

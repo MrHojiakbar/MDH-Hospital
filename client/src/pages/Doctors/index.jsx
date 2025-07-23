@@ -31,7 +31,7 @@ const DoctorsPage = () => {
   }
 
   return (
-    <DoctorPageWrapper>
+    <DoctorPageWrapper className="container">
       <h1 className="title">Shifokorlar</h1>
       <div className="main-box">
         {doctors.map((doctor) => (

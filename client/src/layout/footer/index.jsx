@@ -5,35 +5,51 @@ import { NavLink } from "react-router";
 const FooterLayout = () => {
   return (
     <footer>
-      <div className="footer-content">
+      <div className="footer-content container">
         <div className="footer-section about">
           <h3>Biz Haqimizda</h3>
           <p>
-            Bizning kasalxonamizda sizga yuqori malakali shifokorlar va zamonaviy
-            tibbiy asbob-uskunalar yordamida sifatli xizmat ko'rsatamiz.
-            Sog'ligingiz biz uchun muhim.
+            Bizning kasalxonamizda sizga yuqori malakali shifokorlar va
+            zamonaviy tibbiy asbob-uskunalar yordamida sifatli xizmat
+            ko'rsatamiz. Sog'ligingiz biz uchun muhim.
           </p>
         </div>
 
         <div className="footer-section links">
-          <h3>Tezkor Havolalar</h3>
-          <ul>
-            <li>
-              <NavLink>Bosh Sahifa</NavLink>
-            </li>
-            <li>
-              <NavLink>Xizmatlar</NavLink>
-            </li>
-            <li>
-              <NavLink>Shifokorlar</NavLink>
-            </li>
-            <li>
-              <NavLink>Qabulga Yozilish</NavLink>
-            </li>
-            <li>
-              <NavLink>Bog'lanish</NavLink>
-            </li>
-          </ul>
+          <div className="box-link">
+            <h3>Tezkor Havolalar</h3>
+            <ul>
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : ""
+                  }
+                >
+                  Bosh Sahifa
+                </NavLink>
+              </li>
+              <li>
+                <NavLink>Xizmatlar</NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/doctors"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : ""
+                  }
+                >
+                  Shifokorlar
+                </NavLink>
+              </li>
+              <li>
+                <NavLink>Qabulga Yozilish</NavLink>
+              </li>
+              <li>
+                <NavLink>Bog'lanish</NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="footer-section contact">
@@ -51,7 +67,10 @@ const FooterLayout = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Kasalxona Nomi. Barcha huquqlar himoyalangan.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Kasalxona Nomi. Barcha huquqlar
+          himoyalangan.
+        </p>
       </div>
     </footer>
   );

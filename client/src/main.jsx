@@ -10,6 +10,8 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    <Toaster />
+    <Toaster
+      position="top-right"
+    />
   </StrictMode>
 );
