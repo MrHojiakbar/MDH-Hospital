@@ -24,7 +24,6 @@ export class PatientService  {
     };
   }
   async create(payload: CreatePatientDto) {
-    console.log(this.prisma);
     
     const newPatient = await this.prisma.patient.create({
       data: payload,
