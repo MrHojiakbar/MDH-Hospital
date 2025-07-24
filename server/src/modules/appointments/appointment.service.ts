@@ -5,7 +5,6 @@ import { CreateAppointmentDto } from './dtos';
 import { isUUID } from 'validator';
 import { Request } from 'express';
 
-// cb53eaa5-4417-4088-a62c-f41cba1a88b1
 
 @Injectable()
 export class AppointmentService {
@@ -21,11 +20,9 @@ export class AppointmentService {
     };
   }
 
-  async create(payload: CreateAppointmentDto) {
+  async create(payload: CreateAppointmentDto, req: Request & { role?: userRole; userId: string }) {
     if (
-      !isUUID(payload.doctorId) ||
-      !isUUID(payload.userId) ||
-      !isUUID(payload.scheduleId)
+      !isUUID(payload.doctorId)
     ) {
       throw new BadRequestException('IDs error not uuid');
     }
@@ -33,7 +30,7 @@ export class AppointmentService {
     const foundSchedule = await this.prisma.schedules.findFirst({where: {doctorId: payload.doctorId}});
 
     const findPending = await this.prisma.appointment.findFirst({
-      where: { userId: payload.userId, status: AppointmentStatus.PENDING },
+      where: { userId: req.userId, status: AppointmentStatus.PENDING },
     });
 
     if (findPending) {
@@ -44,12 +41,11 @@ export class AppointmentService {
       (await this.prisma.appointment.count({
         where: {
           doctorId: payload.doctorId,
-          scheduleId: payload.scheduleId,
         },
       })) + 1;
 
     const lastDate = await this.prisma.appointment.findMany({
-      where: { doctorId: payload.doctorId, scheduleId: payload.scheduleId },
+      where: { doctorId: payload.doctorId },
     });
 
     const now = new Date();
@@ -66,9 +62,8 @@ export class AppointmentService {
 
     const data = await this.prisma.appointment.create({
       data: {
-        userId: payload.userId,
+        userId: req.userId,
         doctorId: payload.doctorId,
-        scheduleId: foundSchedule?.id || 'cb53eaa5-4417-4088-a62c-f41cba1a88b1',
         appointmentDate: halfHourLater,
         queueNumber: count,
         status: AppointmentStatus.PENDING,

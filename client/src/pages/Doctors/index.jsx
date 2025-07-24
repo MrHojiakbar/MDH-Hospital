@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DoctorPageWrapper, StarIcon } from "./Doctor.styled";
 import { customAxios } from "../../api";
 import { NavLink } from "react-router";
+import toast from "react-hot-toast";
 
 const DoctorsPage = () => {
   const [doctors, setDoctors] = useState([]);
@@ -13,7 +14,7 @@ const DoctorsPage = () => {
         setDoctors(response.data.data);
         console.log(response.data.data);
       } catch (error) {
-        console.error("Xatolik:", error);
+        toast.error(error.response.data.message);
       }
     };
 

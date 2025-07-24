@@ -64,7 +64,7 @@ export class UsersController {
 
   @Get('me')
   @Protected(true)
-  @Roles([userRole.admin, userRole.doctor, userRole.manager, userRole.user])
+  @Roles([userRole.admin, userRole.user, userRole.doctor, userRole.manager])
   async me(@Req() req: { userId: string }) {
     return await this.service.me(req.userId);
   }
