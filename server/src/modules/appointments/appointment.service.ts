@@ -5,23 +5,13 @@ import { CreateAppointmentDto } from './dtos';
 import { isUUID } from 'validator';
 import { Request } from 'express';
 
-// cb53eaa5-4417-4088-a62c-f41cba1a88b1
 
 @Injectable()
 export class AppointmentService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAll() {
-    // const today = new Date();
-    // const startTime = new Date(today.setHours(8, 0, 0, 0));
-    // const endTime = new Date(today.setHours(18, 0, 0, 0));
 
-    // const shcema = await this.prisma.schedules.create({data: {
-    //   doctorId: 'd4e22f42-fd35-4be0-abb6-a37cd7eb84e7',
-    //   dayOfWeek: [dayOfWeek.Chorshanba, dayOfWeek.Dushanba],
-    //   startTime: startTime,
-    //   endTime: endTime
-    // }})
 
     const data = await this.prisma.appointment.findMany();
 
