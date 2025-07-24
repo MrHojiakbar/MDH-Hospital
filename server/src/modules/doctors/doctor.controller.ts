@@ -36,7 +36,7 @@ export class DoctorController {
 
   @Post()
   @Protected(true)
-  @Roles([userRole.admin, userRole.doctor, userRole.manager])
+  @Roles([userRole.admin, userRole.doctor, userRole.manager, userRole.user])
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   async create(@Body() data: DoctorCreateDto){

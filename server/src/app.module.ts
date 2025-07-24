@@ -9,6 +9,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { CheckAuthGuard, CheckRoleGuard } from './guards';
 import { JwtHelper } from './helpers';
 import { AmbulanceModule } from './modules/ambulance/ambulance.module';
+import { StatisticModule } from './modules/statistic';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { AmbulanceModule } from './modules/ambulance/ambulance.module';
     PrismaModule,
     UsersModule,
     DoctorModule,
-    AmbulanceModule
+    AmbulanceModule,
+    StatisticModule
   ],
 
   providers: [
