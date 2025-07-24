@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { gender, userRole } from '@prisma/client';
 import { PrismaService } from 'src/prisma';
-import { LoginDto, RegisterDto } from './dtos';
+import { AddUserDto, LoginDto, RegisterDto } from './dtos';
 import * as bcrypt from 'bcryptjs';
 import { Response } from 'express';
 
@@ -25,17 +25,17 @@ export class UsersService implements OnModuleInit {
       console.log('✅');
     } catch (error) {
       console.log('❌');
-      console.log(error)
+      console.log(error);
     }
   }
 
-  async getAll(){
+  async getAll() {
     const data = await this.prisma.user.findMany();
 
     return {
-      message: "success",
+      message: 'success',
       data: data,
-    }
+    };
   }
 
   async register(payload: RegisterDto, res: Response) {
@@ -59,7 +59,7 @@ export class UsersService implements OnModuleInit {
         gender: payload.gender,
         password: hashedPassword,
         phoneNumber: payload.phoneNumber,
-        role: payload.role,
+        role: userRole.user,
         fullname: payload.fullname,
       },
     });
@@ -142,6 +142,35 @@ export class UsersService implements OnModuleInit {
       },
     };
   }
+  async add(payload: AddUserDto, res: Response) {
+    const founded = await this.prisma.user.findFirst({
+      where: { email: payload.email },
+    });
+
+    if (founded) {
+      throw new ConflictException('Bu foydalanuvchi allaqachon mavjud!');
+    }
+    const hashedPassword = await bcrypt.hash(payload.password, 10);
+    const doctor = await this.prisma.user.create({
+      data: {
+        email: payload.email,
+        fullname: payload.fullname,
+        gender: payload.gender,
+        imageUrl:
+          'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+        password: hashedPassword,
+        phoneNumber: payload.phoneNumber,
+        role: userRole.doctor,
+      },
+    });
+
+    return {
+      message: 'Succuess',
+      data: {
+        user: doctor,
+      },
+    };
+  }
   async me(id: string) {
     const founded = await this.prisma.user.findFirst({
       where: { id },
@@ -186,7 +215,6 @@ export class UsersService implements OnModuleInit {
           email: user.email,
         },
       });
-
 
       if (!founded) {
         const hashedPassword = await bcrypt.hash(user.password, 10);

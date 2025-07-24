@@ -109,7 +109,7 @@ const NavBarLayout = () => {
             <NavLink
               to="/me"
               className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
+                isActive ? "nav-link active last-p" : "nav-link last-p"
               }
             >
               <FontAwesomeIcon icon={faUser} />
@@ -119,6 +119,7 @@ const NavBarLayout = () => {
               <button onClick={sos}>Tez Yordam</button>
             </div>
           </div>
+          <div></div>
         </div>
       </div>
     </nav>

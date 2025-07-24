@@ -19,6 +19,9 @@
   }
 
   .title {
+    max-width: 80%;
+    margin: 0 auto;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 
@@ -28,6 +31,31 @@
       &:hover {
         color: #5885af;
       }
+    }
+  }
+  .addUser {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    padding: 16px;
+    gap: 16px;
+    text-align: center;
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    button {
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+      background-color: transparent;
+      color: #274472;
+      cursor: pointer;
+      max-width: 232px;
+      width: 100%;
+      margin: 0 auto;
     }
   }
   .img {
@@ -68,7 +96,7 @@
     }
   }
 
-  .more {
+  .userInfo {
     display: flex;
     flex-direction: column;
 
@@ -80,6 +108,17 @@
       justify-content: space-between;
       border-bottom: 1px solid #274472;
       margin-bottom: 20px;
+    }
+  }
+
+  .more {
+    max-width: 80%;
+    margin: 0 auto;
+    width: 100%;
+    text-align: end;
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }

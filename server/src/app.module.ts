@@ -10,6 +10,7 @@ import { CheckAuthGuard, CheckRoleGuard } from './guards';
 import { JwtHelper } from './helpers';
 import { AmbulanceModule } from './modules/ambulance/ambulance.module';
 import { PatientModule } from './modules/patient/patient.module';
+import { ScheduleModule } from './modules/schedule';
 
 @Module({
   imports: [
@@ -28,18 +29,20 @@ import { PatientModule } from './modules/patient/patient.module';
     AmbulanceModule,
     PatientModule,
     AppointmentModule,
+    ScheduleModule,
+    PatientModule,
   ],
 
   providers: [
     JwtHelper,
     {
       provide: APP_GUARD,
-      useClass: CheckAuthGuard
+      useClass: CheckAuthGuard,
     },
     {
       provide: APP_GUARD,
-      useClass: CheckRoleGuard
-    }
-  ]
+      useClass: CheckRoleGuard,
+    },
+  ],
 })
 export class AppModule {}

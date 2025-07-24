@@ -78,10 +78,6 @@ export class DoctorService {
       throw new NotFoundException('User Not Found');
     }
 
-    if (foundUser.role !== 'doctor') {
-      throw new BadRequestException('Bu Userning Roli Doctor emas');
-    }
-
     const founDoctorUserId = await this.prisma.doctor.findFirst({
       where: { userId: payload.userId },
     });
