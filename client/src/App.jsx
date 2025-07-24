@@ -3,17 +3,19 @@ import { Route, Routes } from "react-router";
 import { MainLayout } from "./layout";
 import {
   AboutUsPage,
+  AddDoctorPage,
+  AddSchedulePage,
+  AddUserPage,
   ContactsPage,
+  DoctorDetailsPage,
   DoctorsPage,
   HomePage,
+  LoginPage,
   ProfilePage,
+  RegisterPage,
   StatisticsPage,
 } from "./pages";
-import LoginPage from "./pages/Profile/login/login";
-import RegisterPage from "./pages/Profile/register/register";
-import AddUserPage from "./pages/Profile/addUser";
-import AddDoctorPage from "./pages/Profile/addDoctor";
-import AddSchedulePage from "./pages/Profile/addSchedule";
+
 
 const App = () => {
   return (
@@ -25,7 +27,10 @@ const App = () => {
         <Route path="statistics" element={<StatisticsPage />} />
         <Route path="about" element={<AboutUsPage />} />
         <Route path="me" element={<ProfilePage />} />
-        {/* <Route path="/doctor_details/:doctorId" element={< DoctorDetailsPage />} /> */}
+        <Route
+          path="/doctor_details/:doctorId"
+          element={<DoctorDetailsPage />}
+        />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="add-doctor" element={<AddDoctorPage />} />
