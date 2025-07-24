@@ -15,6 +15,12 @@ nav {
     justify-content: space-between;
   }
 
+  .last-p {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   .img img {
     margin-top: 10px;
     width: 60px;
@@ -23,12 +29,10 @@ nav {
     border-radius: 50%;
   }
 
-
   .navigation {
     display: flex;
     gap: 24px;
   }
-
 
   .active {
     color: #274472;
@@ -42,13 +46,6 @@ nav {
       text-decoration: underline;
     }
 
-    &:last-child {
-      margin-right: 20px;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
   }
 }
 
@@ -59,7 +56,6 @@ nav {
   gap: 15px;
 
   .sos {
-
     & button {
       width: 65px;
       height: 65px;
@@ -71,6 +67,5 @@ nav {
       cursor: pointer;
       border-radius: 50%;
     }
-
   }
 }
