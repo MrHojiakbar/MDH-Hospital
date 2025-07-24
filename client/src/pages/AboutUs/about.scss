@@ -1,0 +1,46 @@
+.about-wrapper {
+  h1 {
+    text-align: center;
+    color: #274472;
+  }
+  .about-us {
+    max-width: 1432px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    padding: 16px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+
+    b,
+    li {
+      color: #274472;
+    }
+    p {
+      color: #41729f;
+    }
+
+    .about-card {
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .hamkor {
+        box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        gap: 16px;
+        img {
+          width: 50px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ambulance" ALTER COLUMN "status" SET DEFAULT 'AVAILABLE';

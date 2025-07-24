@@ -11,10 +11,7 @@ export class RegisterDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({enum: userRole, example: userRole.user, required: true})
-  @IsString()
-  @IsEnum(userRole)
-  role: userRole;
+
 
   @ApiProperty({
     type: 'string',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DoctorDetailsWrapper } from "./DoctorDetails.styled";
+import { DoctorDetailsWrapper, StarIcon } from "./DoctorDetails.styled";
 import { useParams } from "react-router";
 import { customAxios } from "../../api";
 import toast from "react-hot-toast";
@@ -22,6 +22,15 @@ const DoctorDetailsPage = () => {
     getData();
   }, [doctorId]);
 
+  function getStars(stars) {
+    let starArr = [];
+    for (let i = 0; i < stars; i++) {
+      starArr.push(<StarIcon key={i} />, " ");
+    }
+
+    return starArr;
+  }
+
   return (
     <DoctorDetailsWrapper className="container">
       <div className="main-box">
@@ -34,8 +43,20 @@ const DoctorDetailsPage = () => {
           </div>
 
           <div className="box-words">
-            <p>Ism Familyasi: {doctor?.user?.fullname}</p>
-            <p>Ish Tajribasi: {doctor?.experienceYears} Yil</p>
+            <div>
+              <h4>Ism Familyasi: {doctor?.user?.fullname}</h4>
+              <p>{doctor?.user?.email}</p>
+              <p>Ish Turi: {doctor?.workType}</p>
+              <p>Bio: {doctor?.bio}</p>
+              <p>Ish Tajribasi: {doctor?.experienceYears} Yil</p>
+              <div className="stars"> {getStars(doctor.stars)} </div>
+            </div>
+
+            <div>
+              <p>Hozir: {doctor?.status}</p>
+              <p>Xona Raqami: {doctor?.roomNumber}</p>
+              <button>Doctor qabuliga yozilish</button>
+            </div>
           </div>
         </div>
       </div>

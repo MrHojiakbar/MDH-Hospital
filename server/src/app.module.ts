@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma';
-import { UsersModule } from './modules';
+import { AppointmentModule, UsersModule } from './modules';
 import { DoctorModule } from './modules';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
@@ -10,6 +10,9 @@ import { CheckAuthGuard, CheckRoleGuard } from './guards';
 import { JwtHelper } from './helpers';
 import { AmbulanceModule } from './modules/ambulance/ambulance.module';
 import { StatisticModule } from './modules/statistic';
+import { PatientModule } from './modules/patient/patient.module';
+import { ScheduleModule } from './modules/schedule';
+
 
 @Module({
   imports: [
@@ -26,19 +29,22 @@ import { StatisticModule } from './modules/statistic';
     UsersModule,
     DoctorModule,
     AmbulanceModule,
-    StatisticModule
+    StatisticModule,
+    PatientModule,
+    AppointmentModule,
+    ScheduleModule,
   ],
 
   providers: [
     JwtHelper,
     {
       provide: APP_GUARD,
-      useClass: CheckAuthGuard
+      useClass: CheckAuthGuard,
     },
     {
       provide: APP_GUARD,
-      useClass: CheckRoleGuard
-    }
-  ]
+      useClass: CheckRoleGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.scss";
 import { NavLink } from "react-router";
 import { baseUrl } from "../../../config/baseUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowUp,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MePage = ({ user }) => {
+  const [more, setMore] = useState(false);
   return (
     <div className="me">
       <div className="info">
         <div className="title">
           <span>Sizning profilingiz</span>
-          <NavLink to={`${baseUrl}/auth/logout`}>Tizimdan chiqish</NavLink>
+          <NavLink to={`${baseUrl}/auth/logout`}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </NavLink>
         </div>
         <div className="img">
           <div className="upload">
@@ -24,7 +30,8 @@ const MePage = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="more">
+
+        <div className="userInfo">
           <div>
             <b>Ismi:</b>
             <span>{user.fullname}</span>
@@ -50,8 +57,46 @@ const MePage = ({ user }) => {
             <span>{new Date(user.createdAt).toLocaleDateString()}</span>
           </div>
         </div>
+        <div className="more" onClick={() => setMore(!more)}>
+          more...
+        </div>
+        <div className="permittion">
+          {user.role === "user" && more && (
+            <p>Sizda hozircha qo'shimcha huquqlar yo'q!</p>
+          )}
+
+          {user.role == "doctor" && more && (
+            <div className="addUser">
+              <span>
+                Sizda o'z ish grafigingizni shakklantirish imkoniyati mavjud!
+              </span>
+              <NavLink to={"/add-schedule"}>
+                <button>Shakklantirish</button>
+              </NavLink>
+            </div>
+          )}
+
+          {more && user.role == "admin" && (
+            <>
+              <div className="addUser">
+                <span>Sizda yangi shifokor qo'shish imkoniyati mavjud!</span>
+                <NavLink to={"/add-doctor"}>
+                  <button>Qo'shish</button>
+                </NavLink>
+              </div>
+              <div className="addUser">
+                <span>
+                  Sizda yangi foydalanuvchi yaratish imkoniyati mavjud!
+                </span>
+                <NavLink to={"/add-user"}>
+                  <button>Yaratish</button>
+                </NavLink>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-      <div className="story">story</div>
+      <div className="story"></div>
     </div>
   );
 };
