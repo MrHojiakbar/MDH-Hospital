@@ -1,26 +1,31 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { dayOfWeek } from '@prisma/client';
-import { IsDateString, IsEnum, IsString } from 'class-validator';
+import { IsArray, ArrayNotEmpty, IsEnum, IsString } from 'class-validator';
 
 export class AddScheduleDto {
   @ApiProperty({
-    type: 'string',
-    enumName: 'dayOfWeek',
-    enum: dayOfWeek,
-    required: true,
-    example: [
-      dayOfWeek.Dushanba,
-      dayOfWeek.Seshanba,
-      dayOfWeek.Chorshanba,
-      dayOfWeek.Juma,
-    ],
+    type: 'array',
+    items: { type: 'string' },
+    example: [dayOfWeek.Dushanba, dayOfWeek.Seshanba, dayOfWeek.Juma],
   })
-  @IsEnum(dayOfWeek)
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsEnum(dayOfWeek, { each: true })
   dayOfWeek: dayOfWeek[];
 
-  @IsDateString()
+  @ApiProperty({
+    type: 'string',
+    example: '09:00',
+    required: true,
+  })
+  @IsString()
   startTime: string;
 
-  @IsDateString()
+  @ApiProperty({
+    type: 'string',
+    example: '18:00',
+    required: true,
+  })
+  @IsString()
   endTime: string;
 }

@@ -11,8 +11,9 @@ import {
 } from "./pages";
 import LoginPage from "./pages/Profile/login/login";
 import RegisterPage from "./pages/Profile/register/register";
-import AddDoctorPage from "./pages/Profile/addDoctor";
 import AddUserPage from "./pages/Profile/addUser";
+import AddDoctorPage from "./pages/Profile/addDoctor";
+import AddSchedulePage from "./pages/Profile/addSchedule";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="add-doctor" element={<AddDoctorPage />} />
         <Route path="add-user" element={<AddUserPage />} />
+        <Route path="add-schedule" element={<AddSchedulePage />} />
       </Route>
     </Routes>
   );

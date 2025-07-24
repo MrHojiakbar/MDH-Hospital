@@ -1,24 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.scss";
-import { NavLink } from "react-router";
 import { NavLink } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import mainLogo from '../../assets/images/mainLogo.png'
+import mainLogo from "../../assets/images/mainLogo.png";
 import { customAxios } from "../../api";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 const NavBarLayout = () => {
   const showToastWithButton = (timeoutId) => {
     toast(
       (t) => (
-
         <button
           onClick={() => {
-            clearTimeout(timeoutId)
+            clearTimeout(timeoutId);
             toast.dismiss(t.id);
           }}
-          style={{ width: "100%", height: "100%", backgroundColor: 'white', border: 'none', color: 'red', cursor: "pointer" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "white",
+            border: "none",
+            color: "red",
+            cursor: "pointer",
+          }}
         >
           Bekor qilish! ×
         </button>
@@ -36,8 +41,8 @@ const NavBarLayout = () => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             const yandexLink = `https://yandex.uz/maps/?ll=${longitude},${latitude}&z=24`;
-            await customAxios.post('/patient', { location: yandexLink })
-            toast.success('Tez yordam chaqirildi!')            
+            await customAxios.post("/patient", { location: yandexLink });
+            toast.success("Tez yordam chaqirildi!");
           },
           (error) => {
             console.error("Geolocation error:", error);
@@ -46,10 +51,9 @@ const NavBarLayout = () => {
       } catch (err) {
         console.log(`Xatolik: ${err}`);
       }
-    }, 3000)
-    showToastWithButton(iSetd)
-
-  }
+    }, 3000);
+    showToastWithButton(iSetd);
+  };
   return (
     <nav>
       <div className="container">
@@ -113,7 +117,7 @@ const NavBarLayout = () => {
             </NavLink>
           </div>
           <div>
-            <button>Tez Yordam</button>
+            <button onClick={sos}>Tez Yordam</button>
           </div>
         </div>
       </div>

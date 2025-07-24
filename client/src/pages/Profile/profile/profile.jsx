@@ -61,11 +61,22 @@ const MePage = ({ user }) => {
           more...
         </div>
         <div className="permittion">
-          {user.role === "user" ? (
-            more ? (
-              <p>Sizda hozircha qo'shimcha huquqlar yo'q!</p>
-            ) : null
-          ) : more ? (
+          {user.role === "user" && more && (
+            <p>Sizda hozircha qo'shimcha huquqlar yo'q!</p>
+          )}
+
+          {user.role == "doctor" && more && (
+            <div className="addUser">
+              <span>
+                Sizda o'z ish grafigingizni shakklantirish imkoniyati mavjud!
+              </span>
+              <NavLink to={"/add-schedule"}>
+                <button>Shakklantirish</button>
+              </NavLink>
+            </div>
+          )}
+
+          {more && user.role == "admin" && (
             <>
               <div className="addUser">
                 <span>Sizda yangi shifokor qo'shish imkoniyati mavjud!</span>
@@ -74,16 +85,18 @@ const MePage = ({ user }) => {
                 </NavLink>
               </div>
               <div className="addUser">
-                <span>Sizda yangi foydalanuvchi yaratish imkoniyati mavjud!</span>
+                <span>
+                  Sizda yangi foydalanuvchi yaratish imkoniyati mavjud!
+                </span>
                 <NavLink to={"/add-user"}>
                   <button>Yaratish</button>
                 </NavLink>
               </div>
             </>
-          ) : null}
+          )}
         </div>
       </div>
-      <div className="story">story</div>
+      <div className="story"></div>
     </div>
   );
 };
