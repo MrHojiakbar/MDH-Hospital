@@ -19,7 +19,7 @@ const NavBarLayout = () => {
           }}
           style={{ width: "100%", height: "100%", backgroundColor: 'white', border: 'none', color: 'red', cursor: "pointer" }}
         >
-          Bekor qilish! ×
+          Bekor qilish! x
         </button>
       ),
       {

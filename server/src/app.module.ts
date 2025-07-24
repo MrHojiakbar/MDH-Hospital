@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma';
-import { UsersModule } from './modules';
+import { AppointmentModule, UsersModule } from './modules';
 import { DoctorModule } from './modules';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
@@ -26,7 +26,8 @@ import { PatientModule } from './modules/patient/patient.module';
     UsersModule,
     DoctorModule,
     AmbulanceModule,
-    PatientModule
+    PatientModule,
+    AppointmentModule,
   ],
 
   providers: [
