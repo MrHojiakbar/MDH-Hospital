@@ -25,7 +25,7 @@ const NavBarLayout = () => {
             cursor: "pointer",
           }}
         >
-          Bekor qilish! ×
+          Bekor qilish! x
         </button>
       ),
       {

@@ -1,0 +1,64 @@
+.contacts {
+  max-width: 1432px;
+  padding: 16px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  .contactWidthAdmin {
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+
+    img {
+      max-width: 90%;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 16px;
+      max-width: 90%;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      background-color: #5885af;
+      color: #274472;
+      font-size: medium;
+
+      a {
+        color: #274472;
+      }
+
+      .call {
+        margin-left: 20px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .contactInfo {
+    box-shadow: rgba(#274472, 0.2) 0px 7px 29px 0px;
+    padding: 16px;
+    border-radius: 8px;
+
+    b,
+    p {
+      color: #274472;
+    }
+    li,
+    a {
+      color: #5885af;
+
+      &:hover {
+        color: #274472;
+        cursor: pointer;
+      }
+    }
+  }
+}

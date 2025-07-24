@@ -12,15 +12,15 @@ export class DoctorController {
 
 
   @Get()
-  @Protected(true)
-  @Roles([userRole.admin, userRole.doctor, userRole.manager])
+  @Protected(false)
+  @Roles([userRole.user])
   async getAll(){
     return await this.service.getAll();
   }
 
   @Get(":id")
-  @Protected(true)
-  @Roles([userRole.admin, userRole.doctor, userRole.manager])
+  @Protected(false)
+  @Roles([userRole.user])
   async getById(@Param('id') id: string){
     return await this.service.getById(id);
   }

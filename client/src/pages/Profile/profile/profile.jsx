@@ -58,7 +58,7 @@ const MePage = ({ user }) => {
           </div>
         </div>
         <div className="more" onClick={() => setMore(!more)}>
-          more...
+          Yana...
         </div>
         <div className="permittion">
           {user.role === "user" && more && (
