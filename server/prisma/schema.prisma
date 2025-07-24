@@ -143,16 +143,19 @@ model Ambulance {
 }
 
 model Appointment {
-  id              String            @id @default(uuid()) @db.Uuid
-  doctor          Doctor            @relation(fields: [doctorId], references: [id])
-  doctorId        String            @db.Uuid
-  userId          String            @db.Uuid
-  user            User              @relation(fields: [userId], references: [id])
+  id              String    @id @default(uuid()) @db.Uuid
+  doctor          Doctor    @relation(fields: [doctorId], references: [id])
+  doctorId        String    @db.Uuid
+  userId          String    @db.Uuid
+  user            User      @relation(fields: [userId], references: [id])
   appointmentDate DateTime
-  queueNumber     Int
-  status          AppointmentStatus
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt()
+  schedule        Schedules @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  scheduleId      String    @db.Uuid
+
+  queueNumber Int
+  status      AppointmentStatus
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt()
 }
 
 model Chat {
@@ -178,12 +181,13 @@ model statistic {
 }
 
 model Schedules {
-  id        String      @id @default(uuid()) @db.Uuid
-  doctor    Doctor      @relation(fields: [doctorId], references: [id])
-  doctorId  String      @db.Uuid
-  dayOfWeek dayOfWeek[]
-  startTime DateTime
-  endTime   DateTime
+  id          String        @id @default(uuid()) @db.Uuid
+  doctor      Doctor        @relation(fields: [doctorId], references: [id])
+  doctorId    String        @db.Uuid
+  dayOfWeek   dayOfWeek[]
+  startTime   DateTime
+  endTime     DateTime
+  Appointment Appointment[]
 }
 
 model Notification {
