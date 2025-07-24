@@ -7,7 +7,7 @@ export class CreateAmbulance {
     @IsString()
     carNumber:string;
 
-    @ApiProperty({type:'string',description:'Example one of Enum',example:ambulanceStatus.PENDING,required:true})
+    @ApiProperty({type:'string',description:'Example one of Enum',example:ambulanceStatus.AVAILABLE,required:true})
     @IsString()
     @IsEnum(ambulanceStatus)
     status:ambulanceStatus;
