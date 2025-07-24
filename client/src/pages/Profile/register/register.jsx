@@ -28,7 +28,7 @@ const RegisterPage = () => {
         e.target.reset();
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error(err?.response?.data?.message || "Ro'yxatdan o'tishda xatolik");
       });
 
     setLoading(false);

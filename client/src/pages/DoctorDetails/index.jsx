@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { DoctorDetailsWrapper, StarIcon } from "./DoctorDetails.styled";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { customAxios } from "../../api";
 import toast from "react-hot-toast";
 
 const DoctorDetailsPage = () => {
   const [doctor, setDoctorInfo] = useState({});
   const { doctorId } = useParams();
+  const navget = useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -29,6 +30,20 @@ const DoctorDetailsPage = () => {
     }
 
     return starArr;
+  }
+
+  async function handleFn(){
+
+    try {
+      const data = await customAxios.post('/appointment', {doctorId: doctorId})
+      toast.success('Mufoqyatli qabulga yozildingiz');
+      console.log(data)
+    } catch (error) {
+      if(error.response.data.message == 'token_not_found'){
+        navget('/register')
+      }
+      toast.error(error.response.data.message);
+    }
   }
 
   return (
@@ -55,7 +70,7 @@ const DoctorDetailsPage = () => {
             <div>
               <p>Hozir: {doctor?.status}</p>
               <p>Xona Raqami: {doctor?.roomNumber}</p>
-              <button>Doctor qabuliga yozilish</button>
+              <button onClick={() => handleFn()}>Doctor qabuliga yozilish</button>
             </div>
           </div>
         </div>

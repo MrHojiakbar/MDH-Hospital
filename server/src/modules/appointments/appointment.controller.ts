@@ -6,7 +6,7 @@ import { CreateAppointmentDto } from "./dtos";
 import { Request } from "express";
 
 
-@Controller('Appointment')
+@Controller('appointment')
 export class AppointmentController {
   constructor(private readonly service: AppointmentService) {};
 
@@ -20,8 +20,8 @@ export class AppointmentController {
   @Post()
   @Protected(true)
   @Roles([userRole.admin, userRole.doctor, userRole.manager, userRole.user])
-  async create(@Body() body: CreateAppointmentDto){
-    return await this.service.create(body);
+  async create(@Body() body: CreateAppointmentDto, @Req() req: Request & { role?: userRole; userId: string }){
+    return await this.service.create(body, req);
   }
 
   @Get('getStatus')

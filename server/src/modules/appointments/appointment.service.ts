@@ -5,23 +5,12 @@ import { CreateAppointmentDto } from './dtos';
 import { isUUID } from 'validator';
 import { Request } from 'express';
 
-// cb53eaa5-4417-4088-a62c-f41cba1a88b1
 
 @Injectable()
 export class AppointmentService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAll() {
-    // const today = new Date();
-    // const startTime = new Date(today.setHours(8, 0, 0, 0));
-    // const endTime = new Date(today.setHours(18, 0, 0, 0));
-
-    // const shcema = await this.prisma.schedules.create({data: {
-    //   doctorId: 'd4e22f42-fd35-4be0-abb6-a37cd7eb84e7',
-    //   dayOfWeek: [dayOfWeek.Chorshanba, dayOfWeek.Dushanba],
-    //   startTime: startTime,
-    //   endTime: endTime
-    // }})
 
     const data = await this.prisma.appointment.findMany();
 
@@ -31,17 +20,17 @@ export class AppointmentService {
     };
   }
 
-  async create(payload: CreateAppointmentDto) {
+  async create(payload: CreateAppointmentDto, req: Request & { role?: userRole; userId: string }) {
     if (
-      !isUUID(payload.doctorId) ||
-      !isUUID(payload.userId) ||
-      !isUUID(payload.scheduleId)
+      !isUUID(payload.doctorId)
     ) {
       throw new BadRequestException('IDs error not uuid');
     }
 
+    const foundSchedule = await this.prisma.schedules.findFirst({where: {doctorId: payload.doctorId}});
+
     const findPending = await this.prisma.appointment.findFirst({
-      where: { userId: payload.userId, status: AppointmentStatus.PENDING },
+      where: { userId: req.userId, status: AppointmentStatus.PENDING },
     });
 
     if (findPending) {
@@ -52,12 +41,11 @@ export class AppointmentService {
       (await this.prisma.appointment.count({
         where: {
           doctorId: payload.doctorId,
-          scheduleId: payload.scheduleId,
         },
       })) + 1;
 
     const lastDate = await this.prisma.appointment.findMany({
-      where: { doctorId: payload.doctorId, scheduleId: payload.scheduleId },
+      where: { doctorId: payload.doctorId },
     });
 
     const now = new Date();
@@ -74,9 +62,8 @@ export class AppointmentService {
 
     const data = await this.prisma.appointment.create({
       data: {
-        userId: payload.userId,
+        userId: req.userId,
         doctorId: payload.doctorId,
-        scheduleId: payload.scheduleId,
         appointmentDate: halfHourLater,
         queueNumber: count,
         status: AppointmentStatus.PENDING,
