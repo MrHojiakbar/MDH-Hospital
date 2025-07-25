@@ -12,6 +12,7 @@ const ProfilePage = () => {
       .then((data) => data.data)
       .then((json) => setUser(json.data.user));
   }, []);
+
   return user ? <MePage user={user} /> : <RegisterPage />;
 };
 

@@ -24,8 +24,8 @@ const AddUserPage = () => {
     customAxios
       .post("auth/add", newUser)
       .then((res) => {
-        toast.success(res.data.message);
-        navigator.clipboard.writeText(res.data.data.user.id)
+        toast.success("UserId clipboardga saqlandi!");
+        navigator.clipboard.writeText(res.data.data.user.id);
         e.target.reset();
         setTimeout(() => {
           navigate("/add-doctor");
